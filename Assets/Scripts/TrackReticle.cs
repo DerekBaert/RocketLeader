@@ -1,21 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 
-public class FollowTarget : MonoBehaviour
+public class TrackReticle : MonoBehaviour
 {
     private GameObject target;
     public GameObject projectile;
     public Transform turretTransform;
-    [SerializeField] public GameObject cannonEnd;
+    public GameObject cannonEnd;
+
 
     // Start is called before the first frame update
     void Start()
     {
         target = GameObject.Find("Reticle");
+
     }
 
     // Update is called once per frame
@@ -28,7 +27,12 @@ public class FollowTarget : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             float signedAngle = Vector2.SignedAngle(transform.up, vectorToTarget);
-            Instantiate(projectile, cannonEnd.transform.position, Quaternion.Euler(0, 0, UnityEngine.Random.Range(signedAngle * 0.5f, signedAngle * 1.5f)));
+
+            projectile.GetComponent<PlayerRocket>().targetPosition = targetLocation;
+
+            GameObject playerRocket = Instantiate(projectile, cannonEnd.transform.position, Quaternion.Euler(0, 0, signedAngle));
+            
+
         }
     }
 
