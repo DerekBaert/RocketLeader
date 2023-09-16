@@ -1,22 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
-
-
-public class TrackReticle : MonoBehaviour
+public class Turret : MonoBehaviour
 {
+    public bool isAlive = true;
+    public GameObject Sprite;
     private GameObject target;
     public GameObject projectile;
     public Transform turretTransform;
     public GameObject cannonEnd;
-    public bool isAlive = true;
-    SpriteRenderer spriteRenderer;
 
 
     // Start is called before the first frame update
     void Start()
     {
         target = GameObject.Find("Reticle");
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class TrackReticle : MonoBehaviour
         Vector3 vectorToTarget = targetLocation - turretTransform.position;
         RotateTowardsTarget(targetLocation, vectorToTarget);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isAlive)
         {
             float signedAngle = Vector2.SignedAngle(transform.up, vectorToTarget);
 
@@ -45,5 +45,11 @@ public class TrackReticle : MonoBehaviour
         Debug.DrawRay(turretTransform.position, transform.up, Color.green, .5f);
     }
 
+    
+    // Called when target is destroyed
+    public void Hit()
+    {
+        isAlive = false;
+        Sprite.SetActive(false);
+    }
 }
-

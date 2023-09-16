@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Destructible
+  - PlayerBuilding
+  - PlayerTurret
+  - EnemyRocket
   layers:
   - Default
   - TransparentFX

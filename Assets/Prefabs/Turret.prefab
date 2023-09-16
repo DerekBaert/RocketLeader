@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 647481413061603214}
-  - component: {fileID: 3415344053671746750}
+  - component: {fileID: 4126227636109657651}
+  - component: {fileID: 8176354387721029422}
   - component: {fileID: 5652943408944111432}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Destructible
+  m_TagString: PlayerTurret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +35,7 @@ Transform:
   - {fileID: 487078207451898949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3415344053671746750
+--- !u!114 &4126227636109657651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,12 +44,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1108986403386671740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34d49d94e108b5043a965b0230287388, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bd63aacaee72d645a3b7f5607a8148c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
+  Sprite: {fileID: 4075117967872034172}
   projectile: {fileID: 6827456020255789491, guid: ff031f51a87ec36488a4b8c70b90cdee, type: 3}
   turretTransform: {fileID: 487078207451898949}
   cannonEnd: {fileID: 3340007806017505330}
+--- !u!50 &8176354387721029422
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108986403386671740}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &5652943408944111432
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -127,7 +157,7 @@ GameObject:
   - component: {fileID: 6379432386408766844}
   m_Layer: 0
   m_Name: TurretBase
-  m_TagString: Untagged
+  m_TagString: PlayerBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

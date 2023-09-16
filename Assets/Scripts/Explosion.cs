@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Explosion : MonoBehaviour
 {
@@ -23,12 +24,22 @@ public class Explosion : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if(collision.gameObject.tag == "Destructible")
+        GameObject target = other.gameObject;
+        switch (target.tag)
         {
-            Debug.Log("Kaboom");
-            // Call Destroy method
+            case "PlayerBuilding":
+                target.GetComponent<CivilianBuilding>().Hit();
+                break;
+            case "PlayerTurret":
+                target.GetComponent<Turret>().Hit();
+                break;
+            case "EnemyRocket":
+                target.GetComponent<EnemyRocket>().Hit();
+                break;
+            default:
+                break;
         }
     }
 }
