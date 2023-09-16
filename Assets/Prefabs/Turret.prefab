@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 647481413061603214}
   - component: {fileID: 3415344053671746750}
+  - component: {fileID: 5652943408944111432}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,6 +49,41 @@ MonoBehaviour:
   projectile: {fileID: 6827456020255789491, guid: ff031f51a87ec36488a4b8c70b90cdee, type: 3}
   turretTransform: {fileID: 487078207451898949}
   cannonEnd: {fileID: 3340007806017505330}
+--- !u!58 &5652943408944111432
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108986403386671740}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.2}
+  serializedVersion: 2
+  m_Radius: 0.75
 --- !u!1 &3340007806017505330
 GameObject:
   m_ObjectHideFlags: 0

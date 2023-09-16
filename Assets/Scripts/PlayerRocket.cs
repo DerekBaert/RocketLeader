@@ -6,6 +6,8 @@ public class PlayerRocket : MonoBehaviour
 {
     public Rigidbody2D body;
     public Vector3 targetPosition;
+    public GameObject explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,8 @@ public class PlayerRocket : MonoBehaviour
 
         if(Vector3.Distance(targetPosition, transform.position) < 0.5)
         {
-            Debug.Log("Explode");
+            //Debug.Log("Explode");
+            Instantiate(explosion, targetPosition, Quaternion.Euler(0, 0, 0));
             Destroy(gameObject);
         }
     }

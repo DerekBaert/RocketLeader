@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 7918033444789488661}
-  targetPosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: -5.2242637, y: 2.4792504, z: 0}
+  explosion: {fileID: 8068758316759736998, guid: 996c880caca39434fa9a5e1827417288, type: 3}
 --- !u!50 &7918033444789488661
 Rigidbody2D:
   serializedVersion: 4

@@ -31,8 +31,6 @@ public class TrackReticle : MonoBehaviour
             projectile.GetComponent<PlayerRocket>().targetPosition = targetLocation;
 
             GameObject playerRocket = Instantiate(projectile, cannonEnd.transform.position, Quaternion.Euler(0, 0, signedAngle));
-            
-
         }
     }
 
