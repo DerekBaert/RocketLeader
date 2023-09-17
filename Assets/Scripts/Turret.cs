@@ -40,9 +40,6 @@ public class Turret : MonoBehaviour
     {
         float signedAngle = Vector2.SignedAngle(transform.up, vectorToTarget);
         turretTransform.rotation = Quaternion.Euler(0, 0, signedAngle);
-
-        Debug.DrawRay(turretTransform.position, vectorToTarget, Color.red, .5f);
-        Debug.DrawRay(turretTransform.position, transform.up, Color.green, .5f);
     }
 
     
