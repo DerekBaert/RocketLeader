@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class EnemyRocket : MonoBehaviour
 {
     private List<GameObject> _targets;
-    private GameObject _target;
+    public GameObject _target;
     private Rigidbody2D _body;
-
     private Vector3 _targetLocation;
     private Vector3 _vectorToTarget;
 
-    public Transform RocketTransform;
+    [SerializeField] private GameObject _art;
+
+    public Transform rocketTransform;
+
+    [SerializeField] private float _baseAcceleration = 0.01f;
+    [SerializeField] private float maxVelocity;
+    [SerializeField] private float maxAcceleration;
+
+    private float _currentAcceleration;
+    private float _velocity;
+    private Vector2 direction;
 
     // Start is called before the first frame update
     void Start()
@@ -46,16 +59,24 @@ public class EnemyRocket : MonoBehaviour
 
         // Rotate towards random _target in array
         _targetLocation = _target.transform.position;
-        _vectorToTarget = _targetLocation - RocketTransform.position;
-        float signedAngle = Vector2.SignedAngle(transform.up, _vectorToTarget);
-        transform.rotation = Quaternion.Euler(0, 0, signedAngle);
+        _vectorToTarget = _targetLocation - this.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Move 'forward' relative to rotation
-        _body.AddForce(new Vector2(_vectorToTarget.normalized.x, _vectorToTarget.normalized.y) * 0.25f);
+        direction = _vectorToTarget.normalized * 0.001f;
+
+        _currentAcceleration += _baseAcceleration * Time.deltaTime;
+        _currentAcceleration = Mathf.Clamp(_currentAcceleration, -maxAcceleration, maxAcceleration);
+
+        _velocity += _currentAcceleration;
+        _velocity = Mathf.Clamp(_velocity, 0, maxVelocity);
+
+        Vector2 velocityVector = _velocity * direction;
+
+        gameObject.transform.Translate(velocityVector);
     }
 
     public void Hit()
