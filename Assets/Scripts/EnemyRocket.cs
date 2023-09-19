@@ -55,7 +55,7 @@ public class EnemyRocket : MonoBehaviour
     void Update()
     {
         // Move 'forward' relative to rotation
-        _body.AddForce(new Vector2(_vectorToTarget.normalized.x, _vectorToTarget.normalized.y) * 0.5f);
+        _body.AddForce(new Vector2(_vectorToTarget.normalized.x, _vectorToTarget.normalized.y) * 0.25f);
     }
 
     public void Hit()
