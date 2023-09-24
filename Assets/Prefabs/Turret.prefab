@@ -54,7 +54,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd63aacaee72d645a3b7f5607a8148c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAlive: 1
   _sprite: {fileID: 4075117967872034172}
   _reticle: {fileID: 0}
   _projectile: {fileID: 6827456020255789491, guid: ff031f51a87ec36488a4b8c70b90cdee, type: 3}

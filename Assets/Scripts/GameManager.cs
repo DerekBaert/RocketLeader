@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Device;
@@ -9,21 +10,24 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private int _rocketsToSpawn = 10;
     [SerializeField] private float _rocketSpawnRate = 2;
-    private float _rocketSpawnCounter;
-    private float _rocketsSpawned;
+    private float _rocketSpawnCountdown;
+    private float _rocketsSpawnedCount;
     public EnemyRocket _rocket;
     private Turret[] _turrets;
     [SerializeField] private GameObject _reticle;
     private Vector3 _reticleLocation;
     private CivilianBuilding[] _buildings;
-    private float playerScore;
+    //private float finalScore;
+    private float _rocketsDestroyed;
+    private List<EnemyRocket> _rocketsSpawned = new List<EnemyRocket>();
+    [SerializeField] private EndGameScreen _endGameScreen;
 
     private bool _scoreDisplayed = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        _rocketSpawnCounter = _rocketSpawnRate;
+        _rocketSpawnCountdown = _rocketSpawnRate;
         _turrets = FindObjectsByType<Turret>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         _buildings = FindObjectsByType<CivilianBuilding>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
     }
@@ -31,43 +35,58 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _rocketSpawnCounter -= Time.deltaTime;
+        _rocketSpawnCountdown -= Time.deltaTime;
         _reticleLocation = _reticle.transform.position;
+
+        if (_rocketsSpawned.Count > 0)
+        {
+            foreach (var enemyRocket in _rocketsSpawned)
+            {
+                if (!enemyRocket.IsAlive() && enemyRocket != null)
+                {
+                    //_rocketsSpawned.Remove(enemyRocket);
+                    _rocketsDestroyed++;
+                    Destroy(enemyRocket);
+                }
+            }
+        }
+        
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
             FireRocket();
         }
 
-        if (_rocketSpawnCounter <= 0 && _rocketsSpawned < _rocketsToSpawn)
+        if (_rocketSpawnCountdown <= 0 && _rocketsSpawnedCount < _rocketsToSpawn)
         {
             SpawnRockets();
         }
-        else if(!_scoreDisplayed && _rocketsSpawned >= _rocketsToSpawn) 
+        else if(!_scoreDisplayed && _rocketsDestroyed >= _rocketsToSpawn)
         {
+            int buildingScore = 0;
+            int ammoScore = 0;
+            int finalScore = 0;
             foreach (var building in _buildings)
             {
                 if (building.IsAlive())
                 {
-                    playerScore += 20;
+                    buildingScore += 20;
                 }
             }
 
-            Debug.Log("Buildings remaining: " + playerScore);
-
-            float ammoScore = 0;
             foreach (var turret in _turrets)
             {
                 if (turret.IsAlive())
                 {
                     ammoScore += turret.GetAmmoRemaining() * 5;
-                    playerScore += turret.GetAmmoRemaining() * 5;
                 }
             }
 
+            finalScore += ammoScore + buildingScore;
+            Debug.Log("Buildings remaining: " + buildingScore);
             Debug.Log("Ammo remaining: " + ammoScore);
-
-            Debug.Log("Total Score: " + playerScore);
+            Debug.Log("Total Score: " + finalScore);
+            _endGameScreen.Setup(ammoScore, buildingScore, finalScore);
             _scoreDisplayed = true;
         }
             
@@ -78,16 +97,13 @@ public class GameManager : MonoBehaviour
         Vector3 screen =
             Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Screen.width, UnityEngine.Screen.height, 0));
 
-        _rocketSpawnCounter = _rocketSpawnRate;
+        _rocketSpawnCountdown = _rocketSpawnRate;
 
         float xPosition = Random.Range(2, (screen.x - 2));
-        Instantiate(_rocket, new Vector3(xPosition, screen.y, 0), Quaternion.identity);
-        _rocketsSpawned++;
+        EnemyRocket rocket = Instantiate(_rocket, new Vector3(xPosition, screen.y, 0), Quaternion.identity);
+        _rocketsSpawned.Add(rocket);
 
-        //if (_rocketsSpawned % 3 == 0)
-        //{
-        //    _rocketSpawnRate -= 0.5f;
-        //}
+        _rocketsSpawnedCount++;
     }
 
     private void FireRocket()

@@ -18,11 +18,14 @@ public class EnemyRocket : MonoBehaviour
     private float _currentAcceleration;
     private float _velocity;
     private Vector2 direction;
+    private bool _isAlive = true;
 
     [SerializeField] private GameObject _art;
+    [SerializeField] private GameObject _trailRender;
     [SerializeField] private float _baseAcceleration = 0.01f;
     [SerializeField] private float maxVelocity;
     [SerializeField] private float maxAcceleration;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -78,7 +81,16 @@ public class EnemyRocket : MonoBehaviour
 
     public void Hit()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
+        _isAlive = false;
+        //_art.SetActive(false);
+        //_trailRender.SetActive(false);
+    }
+
+    public bool IsAlive()
+    {
+        return _isAlive;
     }
 
     void OnTriggerEnter2D(Collider2D other)
