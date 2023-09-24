@@ -172,25 +172,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5191872042724622603, guid: a59eddd482a6eee44aa13e21f31c5ff1, type: 3}
-      propertyPath: _rocket
-      value: 
-      objectReference: {fileID: 595572479022277540, guid: 7b2e42f6e87c80c4c855ef192465fd1e, type: 3}
-    - target: {fileID: 5191872042724622603, guid: a59eddd482a6eee44aa13e21f31c5ff1, type: 3}
       propertyPath: _reticle
       value: 
       objectReference: {fileID: 1314770518}
-    - target: {fileID: 5191872042724622603, guid: a59eddd482a6eee44aa13e21f31c5ff1, type: 3}
-      propertyPath: _rocketsToSpawn
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5191872042724622603, guid: a59eddd482a6eee44aa13e21f31c5ff1, type: 3}
-      propertyPath: _rocketSpawnRate
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5191872042724622603, guid: a59eddd482a6eee44aa13e21f31c5ff1, type: 3}
-      propertyPath: _rocketSpawnStartTimer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5268290353027158637, guid: a59eddd482a6eee44aa13e21f31c5ff1, type: 3}
       propertyPath: m_Name
       value: GameManager
