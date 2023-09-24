@@ -76,8 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  _art: {fileID: 7342665099366102113}
   rocketTransform: {fileID: 5935113168976357985}
+  _art: {fileID: 7342665099366102113}
   _baseAcceleration: 0.01
   maxVelocity: 5
   maxAcceleration: 1

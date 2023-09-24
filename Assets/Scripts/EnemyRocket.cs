@@ -14,18 +14,15 @@ public class EnemyRocket : MonoBehaviour
     private Rigidbody2D _body;
     private Vector3 _targetLocation;
     private Vector3 _vectorToTarget;
-
-    [SerializeField] private GameObject _art;
-
     public Transform rocketTransform;
-
-    [SerializeField] private float _baseAcceleration = 0.01f;
-    [SerializeField] private float maxVelocity;
-    [SerializeField] private float maxAcceleration;
-
     private float _currentAcceleration;
     private float _velocity;
     private Vector2 direction;
+
+    [SerializeField] private GameObject _art;
+    [SerializeField] private float _baseAcceleration = 0.01f;
+    [SerializeField] private float maxVelocity;
+    [SerializeField] private float maxAcceleration;
 
     // Start is called before the first frame update
     void Start()

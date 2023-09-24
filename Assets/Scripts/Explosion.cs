@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Explosion : MonoBehaviour
 {
-    [SerializeField] public float timeToLive = 3;
+    [SerializeField] public float timeToLive = 2;
     // Start is called before the first frame update
     void Start()
     {

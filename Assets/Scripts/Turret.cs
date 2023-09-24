@@ -1,52 +1,91 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
     public bool isAlive = true;
-    public GameObject Sprite;
-    private GameObject target;
-    public GameObject projectile;
-    public Transform turretTransform;
-    public GameObject cannonEnd;
-
+    [SerializeField] private GameObject _sprite;
+    [SerializeField] private GameObject _reticle;
+    [SerializeField] private GameObject _projectile;
+    [SerializeField] private Transform _turretTransform;
+    [SerializeField] private GameObject _cannonEnd;
+    private float _lerpSpeed = 0.5f;
+    [SerializeField] private AnimationCurve _curve;
+    private float _rotateTimer = 0.05f;
+    [SerializeField] private int _ammo = 10;
+    private Vector3 _reticleLocation;
+    private Vector3 _vectorToReticle;
+    [SerializeField] private TMP_Text _text; 
 
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.Find("Reticle");
+        _text.text = "x" + _ammo;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetLocation = target.transform.position;
-        Vector3 vectorToTarget = targetLocation - turretTransform.position;
-        RotateTowardsTarget(targetLocation, vectorToTarget);
+        _reticleLocation = _reticle.transform.position;
+        _vectorToReticle = _reticleLocation - _turretTransform.position;
 
-        if (Input.GetKeyDown(KeyCode.Space) && isAlive)
+        _rotateTimer -= Time.deltaTime;
+
+        if (_rotateTimer <= 0)
         {
-            float signedAngle = Vector2.SignedAngle(transform.up, vectorToTarget);
-
-            projectile.GetComponent<PlayerRocket>().targetPosition = targetLocation;
-
-            GameObject playerRocket = Instantiate(projectile, cannonEnd.transform.position, Quaternion.Euler(0, 0, signedAngle));
+            RotateTowardsTarget(_reticleLocation, _vectorToReticle);
+            _rotateTimer = 0.1f;
         }
+        
+
+        //if (Input.GetKeyDown(KeyCode.Space) && isAlive && _ammo > 0)
+        //{
+        //    FireRocket();
+        //}
+    }
+
+    public bool CanFireRocket()
+    {
+        return isAlive && _ammo > 0;
+    }
+
+    public void FireRocket()
+    {
+        //Debug.Log(_ammo);
+        float signedAngle = Vector2.SignedAngle(transform.up, _vectorToReticle);
+
+        _projectile.GetComponent<PlayerRocket>().targetPosition = _reticleLocation;
+
+        Instantiate(_projectile, _cannonEnd.transform.position, Quaternion.Euler(0, 0, signedAngle));
+        _ammo--;
+        _text.text = "x" + _ammo;
     }
 
     private void RotateTowardsTarget(Vector3 targetLocation, Vector3 vectorToTarget)
     {
-        float signedAngle = Vector2.SignedAngle(transform.up, vectorToTarget);
-        turretTransform.rotation = Quaternion.Euler(0, 0, signedAngle);
+    
+        float timeElapsed = 0;
+        Quaternion startRotation = _turretTransform.rotation;
+
+        while (timeElapsed < _lerpSpeed)
+        {
+            float signedAngle = Vector2.SignedAngle(transform.up, vectorToTarget);
+            _turretTransform.rotation = Quaternion.Slerp(startRotation, Quaternion.Euler(0, 0, signedAngle), _curve.Evaluate(timeElapsed));
+            //Debug.Log(_curve.Evaluate(time) );
+            timeElapsed += Time.deltaTime * _lerpSpeed;
+        }
     }
 
     
-    // Called when target is destroyed
+    // Called when _reticle is destroyed
     public void Hit()
     {
         isAlive = false;
-        Sprite.SetActive(false);
+        _sprite.SetActive(false);
+        _text.enabled = false;
     }
 }
