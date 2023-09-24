@@ -79,7 +79,7 @@ MonoBehaviour:
   rocketTransform: {fileID: 5935113168976357985}
   _art: {fileID: 7342665099366102113}
   _baseAcceleration: 0.01
-  maxVelocity: 5
+  maxVelocity: 4
   maxAcceleration: 1
 --- !u!61 &5808427134435258105
 BoxCollider2D:

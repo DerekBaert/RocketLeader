@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
         _rocketSpawnCounter = _rocketSpawnRate;
 
-        float xPosition = Random.Range(0, screen.x);
+        float xPosition = Random.Range(2, (screen.x - 2));
         Instantiate(_rocket, new Vector3(xPosition, screen.y, 0), Quaternion.identity);
         _rocketsSpawned++;
 
