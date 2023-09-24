@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    public bool isAlive = true;
+    private bool isAlive = true;
     [SerializeField] private GameObject _sprite;
     [SerializeField] private GameObject _reticle;
     [SerializeField] private GameObject _projectile;
@@ -19,7 +19,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private int _ammo = 10;
     private Vector3 _reticleLocation;
     private Vector3 _vectorToReticle;
-    [SerializeField] private TMP_Text _text; 
+    [SerializeField] private TMP_Text _text;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +40,7 @@ public class Turret : MonoBehaviour
             RotateTowardsTarget(_reticleLocation, _vectorToReticle);
             _rotateTimer = 0.1f;
         }
-        
+
 
         //if (Input.GetKeyDown(KeyCode.Space) && isAlive && _ammo > 0)
         //{
@@ -51,6 +51,11 @@ public class Turret : MonoBehaviour
     public bool CanFireRocket()
     {
         return isAlive && _ammo > 0;
+    }
+
+    public bool IsAlive()
+    {
+        return isAlive;
     }
 
     public void FireRocket()
@@ -67,25 +72,31 @@ public class Turret : MonoBehaviour
 
     private void RotateTowardsTarget(Vector3 targetLocation, Vector3 vectorToTarget)
     {
-    
+
         float timeElapsed = 0;
         Quaternion startRotation = _turretTransform.rotation;
 
         while (timeElapsed < _lerpSpeed)
         {
             float signedAngle = Vector2.SignedAngle(transform.up, vectorToTarget);
-            _turretTransform.rotation = Quaternion.Slerp(startRotation, Quaternion.Euler(0, 0, signedAngle), _curve.Evaluate(timeElapsed));
+            _turretTransform.rotation = Quaternion.Slerp(startRotation, Quaternion.Euler(0, 0, signedAngle),
+                _curve.Evaluate(timeElapsed));
             //Debug.Log(_curve.Evaluate(time) );
             timeElapsed += Time.deltaTime * _lerpSpeed;
         }
     }
 
-    
+
     // Called when _reticle is destroyed
     public void Hit()
     {
         isAlive = false;
         _sprite.SetActive(false);
         _text.enabled = false;
+    }
+
+    public int GetAmmoRemaining()
+    {
+        return _ammo;
     }
 }

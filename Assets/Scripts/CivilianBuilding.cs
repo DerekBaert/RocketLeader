@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CivilianBuilding : MonoBehaviour
 {
-    public bool isAlive = true;
+    private bool isAlive = true;
     public GameObject Sprite;
     SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,12 @@ public class CivilianBuilding : MonoBehaviour
     {
         
     }
+
+    public bool IsAlive()
+    {
+        return isAlive;
+    }
+
 
     public void Hit()
     {

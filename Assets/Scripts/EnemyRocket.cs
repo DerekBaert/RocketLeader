@@ -37,7 +37,7 @@ public class EnemyRocket : MonoBehaviour
         // Add all possible _targets to one array
         foreach (Turret turret in turrets)
         {
-            if (turret.isAlive)
+            if (turret.IsAlive())
             {
                 _targets.Add(turret.gameObject);
             }
@@ -45,7 +45,7 @@ public class EnemyRocket : MonoBehaviour
 
         foreach (CivilianBuilding building in buildings)
         {
-            if (building.isAlive)
+            if (building.IsAlive())
             {
                 _targets.Add(building.gameObject);
             }
