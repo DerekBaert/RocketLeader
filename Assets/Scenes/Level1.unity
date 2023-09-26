@@ -2453,6 +2453,14 @@ PrefabInstance:
       propertyPath: _reticle
       value: 
       objectReference: {fileID: 1314770518}
+    - target: {fileID: 4126227636109657651, guid: e5229cae12ad9fc4eab44f7dd307ee62, type: 3}
+      propertyPath: _curve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4126227636109657651, guid: e5229cae12ad9fc4eab44f7dd307ee62, type: 3}
+      propertyPath: _curve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
