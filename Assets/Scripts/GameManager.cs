@@ -83,9 +83,9 @@ public class GameManager : MonoBehaviour
             }
 
             finalScore += ammoScore + buildingScore;
-            Debug.Log("Buildings remaining: " + buildingScore);
-            Debug.Log("Ammo remaining: " + ammoScore);
-            Debug.Log("Total Score: " + finalScore);
+            //Debug.Log("Buildings remaining: " + buildingScore);
+            //Debug.Log("Ammo remaining: " + ammoScore);
+            //Debug.Log("Total Score: " + finalScore);
             _endGameScreen.Setup(ammoScore, buildingScore, finalScore);
             _scoreDisplayed = true;
         }
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 
         _rocketSpawnCountdown = _rocketSpawnRate;
 
-        float xPosition = Random.Range(2, (screen.x - 2));
+        float xPosition = Random.Range(-((screen.x / 2) + 2), (screen.x - 2));
         EnemyRocket rocket = Instantiate(_rocket, new Vector3(xPosition, screen.y, 0), Quaternion.identity);
         _rocketsSpawned.Add(rocket);
 
