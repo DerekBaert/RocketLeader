@@ -7,20 +7,20 @@ using UnityEngine.Device;
 using static UnityEngine.GraphicsBuffer;
 
 public class GameManager : MonoBehaviour
-{
+{   
+    [SerializeField] private GameObject _reticle;
     [SerializeField] private int _rocketsToSpawn = 10;
     [SerializeField] private float _rocketSpawnRate = 2;
+    [SerializeField] private EndGameScreen _endGameScreen;
+
     private float _rocketSpawnCountdown;
     private float _rocketsSpawnedCount;
     public EnemyRocket _rocket;
     private Turret[] _turrets;
-    [SerializeField] private GameObject _reticle;
-    private Vector3 _reticleLocation;
     private CivilianBuilding[] _buildings;
-    //private float finalScore;
     private float _rocketsDestroyed;
     private List<EnemyRocket> _rocketsSpawned = new List<EnemyRocket>();
-    [SerializeField] private EndGameScreen _endGameScreen;
+    
 
     private bool _scoreDisplayed = false;
 
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         _rocketSpawnCountdown -= Time.deltaTime;
-        _reticleLocation = _reticle.transform.position;
 
         if (_rocketsSpawned.Count > 0)
         {
@@ -44,7 +43,6 @@ public class GameManager : MonoBehaviour
             {
                 if (!enemyRocket.IsAlive() && enemyRocket != null)
                 {
-                    //_rocketsSpawned.Remove(enemyRocket);
                     _rocketsDestroyed++;
                     Destroy(enemyRocket);
                 }
@@ -100,7 +98,7 @@ public class GameManager : MonoBehaviour
         _rocketSpawnCountdown = _rocketSpawnRate;
 
         float xPosition = Random.Range(-((screen.x / 2) + 2), (screen.x - 2));
-        EnemyRocket rocket = Instantiate(_rocket, new Vector3(xPosition, screen.y, 0), Quaternion.identity);
+        EnemyRocket rocket = Instantiate(_rocket, new Vector3(xPosition, screen.y - 1.5f, 0), Quaternion.identity);
         _rocketsSpawned.Add(rocket);
 
         _rocketsSpawnedCount++;

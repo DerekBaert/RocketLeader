@@ -11,7 +11,7 @@ public class EnemyRocket : MonoBehaviour
 {   
     [SerializeField] private GameObject _art;
     [SerializeField] private GameObject _trailRender;
-    [SerializeField] private float _baseAcceleration = 0.01f;
+    [SerializeField] private float _baseAcceleration = 0.005f;
     [SerializeField] private float maxVelocity;
     [SerializeField] private float maxAcceleration;
     private List<GameObject> _targets;
@@ -96,11 +96,11 @@ public class EnemyRocket : MonoBehaviour
         {
             case "PlayerBuilding":
                 target.GetComponent<CivilianBuilding>().Hit();
-                Destroy(gameObject);
+                Hit();
                 break;
             case "PlayerTurret":
                 target.GetComponent<Turret>().Hit();
-                Destroy(gameObject);
+                Hit();
                 break;
             default:
                 break;
