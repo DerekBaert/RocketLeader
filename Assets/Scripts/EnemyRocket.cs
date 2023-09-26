@@ -8,29 +8,25 @@ using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 public class EnemyRocket : MonoBehaviour
-{
-    private List<GameObject> _targets;
-    public GameObject _target;
-    private Rigidbody2D _body;
-    private Vector3 _targetLocation;
-    private Vector3 _vectorToTarget;
-    public Transform rocketTransform;
-    private float _currentAcceleration;
-    private float _velocity;
-    private Vector2 direction;
-    private bool _isAlive = true;
-
+{   
     [SerializeField] private GameObject _art;
     [SerializeField] private GameObject _trailRender;
     [SerializeField] private float _baseAcceleration = 0.01f;
     [SerializeField] private float maxVelocity;
     [SerializeField] private float maxAcceleration;
-    
+    private List<GameObject> _targets;
+    private GameObject _target;
+    private Vector3 _targetLocation;
+    private Vector3 _vectorToTarget;
+    private float _currentAcceleration;
+    private float _velocity;
+    private Vector2 direction;
+    private bool _isAlive = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        _body = GetComponent<Rigidbody2D>();
+
         _targets = new List<GameObject>();
 
         // Get all possible _targets (turrets and buildings)
@@ -53,11 +49,11 @@ public class EnemyRocket : MonoBehaviour
                 _targets.Add(building.gameObject);
             }
         }
-        // Debug.Log(_targets.Count);
+
         // Select random _target
         _target = _targets[Random.Range(0, _targets.Count)];
 
-        // Rotate towards random _target in array
+        // Determine the vector between the rocket and the target
         _targetLocation = _target.transform.position;
         _vectorToTarget = _targetLocation - this.transform.position;
     }
@@ -65,15 +61,18 @@ public class EnemyRocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Move 'forward' relative to rotation
+        // Determine direction to move based on vector to the target
         direction = _vectorToTarget.normalized * 0.001f;
 
+        // Add to the current acceleration, clamp to max value
         _currentAcceleration += _baseAcceleration * Time.deltaTime;
         _currentAcceleration = Mathf.Clamp(_currentAcceleration, -maxAcceleration, maxAcceleration);
 
+        // Add acceleration to velocity, clamp velocity
         _velocity += _currentAcceleration;
         _velocity = Mathf.Clamp(_velocity, 0, maxVelocity);
 
+        // Multiply the direction to move by the velocity and apply to gameObject 
         Vector2 velocityVector = _velocity * direction;
 
         gameObject.transform.Translate(velocityVector);
@@ -81,11 +80,8 @@ public class EnemyRocket : MonoBehaviour
 
     public void Hit()
     {
-        //Destroy(gameObject);
         gameObject.SetActive(false);
         _isAlive = false;
-        //_art.SetActive(false);
-        //_trailRender.SetActive(false);
     }
 
     public bool IsAlive()

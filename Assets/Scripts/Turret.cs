@@ -7,19 +7,20 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    private bool isAlive = true;
     [SerializeField] private GameObject _sprite;
     [SerializeField] private GameObject _reticle;
     [SerializeField] private GameObject _projectile;
     [SerializeField] private Transform _turretTransform;
     [SerializeField] private GameObject _cannonEnd;
-    private float _lerpSpeed = 0.5f;
     [SerializeField] private AnimationCurve _curve;
-    private float _rotateTimer = 0.05f;
     [SerializeField] private int _ammo = 10;
+    [SerializeField] private TMP_Text _text;
+
+    private bool isAlive = true;
+    private float _lerpSpeed = 0.5f;
+    private float _rotateTimer = 0.05f;
     private Vector3 _reticleLocation;
     private Vector3 _vectorToReticle;
-    [SerializeField] private TMP_Text _text;
 
     // Start is called before the first frame update
     void Start()
@@ -40,12 +41,6 @@ public class Turret : MonoBehaviour
             RotateTowardsTarget(_reticleLocation, _vectorToReticle);
             _rotateTimer = 0.1f;
         }
-
-
-        //if (Input.GetKeyDown(KeyCode.Space) && isAlive && _ammo > 0)
-        //{
-        //    FireRocket();
-        //}
     }
 
     public bool CanFireRocket()

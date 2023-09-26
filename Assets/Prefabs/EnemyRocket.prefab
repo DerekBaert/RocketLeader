@@ -32,8 +32,8 @@ Transform:
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 338254343157140829}
   - {fileID: 5924612255862969422}
+  - {fileID: 338254343157140829}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6870592320541489155
@@ -75,8 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917a0086ac64ffc42b4b617db8dfe48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  rocketTransform: {fileID: 5935113168976357985}
   _art: {fileID: 7342665099366102113}
   _trailRender: {fileID: 1045745457597021175}
   _baseAcceleration: 0.01
@@ -344,7 +342,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
   m_Color: {r: 0.8490566, g: 0.69155693, b: 0.22828408, a: 1}
   m_FlipX: 0
