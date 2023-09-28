@@ -113,8 +113,10 @@ public class Turret : MonoBehaviour
     /// <param name="vectorToTarget">The vector from the gameObject to the target.</param>
     private void RotateTowardsTarget(Vector3 vectorToTarget)
     {
-        // Update the rotation to the rotation of the lerp at it's current state. An animation curve is passed in with the time elapsed determining the value of the curve.
-        _turretTransform.rotation = Quaternion.Slerp(_startRotation, Quaternion.Euler(0, 0, _signedAngle), _curve.Evaluate(_timeElapsed / _lerpSpeed));
+        // Update the rotation to the rotation of the lerp at it's current state.
+        // An animation curve is passed in with the time elapsed determining the value of the curve.
+        _turretTransform.rotation = Quaternion.Slerp(_startRotation, Quaternion.Euler(0, 0, _signedAngle), 
+                                                    _curve.Evaluate(_timeElapsed / _lerpSpeed));
 
         // Increase _timeElapsed each frame
         _timeElapsed += Time.deltaTime;
