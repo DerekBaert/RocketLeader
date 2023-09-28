@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4722109fd0488c408a4364da5a1e5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 7918033444789488661}
-  targetPosition: {x: -5.2242637, y: 2.4792504, z: 0}
-  explosion: {fileID: 8068758316759736998, guid: 996c880caca39434fa9a5e1827417288, type: 3}
+  _body: {fileID: 0}
+  _explosion: {fileID: 8068758316759736998, guid: 996c880caca39434fa9a5e1827417288, type: 3}
+  TargetPosition: {x: 0, y: 0, z: 0}
 --- !u!50 &7918033444789488661
 Rigidbody2D:
   serializedVersion: 4

@@ -6,7 +6,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Explosion : MonoBehaviour
 {
-    [SerializeField] public float timeToLive = 2;
+    [SerializeField] public float _timeToLive = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,14 +17,19 @@ public class Explosion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeToLive -= Time.deltaTime;
+        // Decrement time to live, when this reaches 0 the object is destroyed.
+        _timeToLive -= Time.deltaTime;
 
-        if (timeToLive < 0 )
+        if (_timeToLive < 0 )
         {
             Destroy(gameObject);
         }
     }
 
+    /// <summary>
+    /// Called when overlapping another collider.
+    /// </summary>
+    /// <param name="other">Other object that triggered the collision.</param>
     void OnTriggerEnter2D(Collider2D other)
     {
         GameObject target = other.gameObject;

@@ -4,31 +4,31 @@ using UnityEngine;
 
 public class CivilianBuilding : MonoBehaviour
 {
-    private bool isAlive = true;
-    public GameObject Sprite;
-    SpriteRenderer spriteRenderer;
+    private bool _isAlive = true;
+    [SerializeField] private GameObject _sprite;
+    private SpriteRenderer _spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = Sprite.GetComponent<SpriteRenderer>();
+        _spriteRenderer = _sprite.GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Returns the status of the building
+    /// </summary>
+    /// <returns>True if alive, false if not.</returns>
     public bool IsAlive()
     {
-        return isAlive;
+        return _isAlive;
     }
 
-
+    /// <summary>
+    /// Called when building is hit by an explosion or Rocket
+    /// </summary>
     public void Hit()
     {
-        isAlive = false;
-        spriteRenderer.enabled = false;
+        _isAlive = false;
+        _spriteRenderer.enabled = false;
     }
 }

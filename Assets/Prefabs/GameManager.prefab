@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6faa64a7abe0c2b44863be24496045fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _reticle: {fileID: 0}
   _rocketsToSpawn: 5
   _rocketSpawnRate: 2
-  _rocket: {fileID: 595572479022277540, guid: 7b2e42f6e87c80c4c855ef192465fd1e, type: 3}
-  _reticle: {fileID: 0}
+  _endGameScreen: {fileID: 0}
+  Rocket: {fileID: 595572479022277540, guid: 7b2e42f6e87c80c4c855ef192465fd1e, type: 3}

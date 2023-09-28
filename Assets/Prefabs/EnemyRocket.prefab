@@ -77,9 +77,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _art: {fileID: 7342665099366102113}
   _trailRender: {fileID: 1045745457597021175}
-  _baseAcceleration: 0.005
-  maxVelocity: 4
-  maxAcceleration: 0.5
+  _baseAcceleration: 0.5
+  _maxVelocity: 8
+  _maxAcceleration: 1
 --- !u!61 &5808427134435258105
 BoxCollider2D:
   m_ObjectHideFlags: 0

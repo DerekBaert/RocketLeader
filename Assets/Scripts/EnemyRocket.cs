@@ -12,15 +12,15 @@ public class EnemyRocket : MonoBehaviour
     [SerializeField] private GameObject _art;
     [SerializeField] private GameObject _trailRender;
     [SerializeField] private float _baseAcceleration = 0.005f;
-    [SerializeField] private float maxVelocity;
-    [SerializeField] private float maxAcceleration;
+    [SerializeField] private float _maxVelocity;
+    [SerializeField] private float _maxAcceleration;
     private List<GameObject> _targets;
     private GameObject _target;
     private Vector3 _targetLocation;
     private Vector3 _vectorToTarget;
     private float _currentAcceleration;
     private float _velocity;
-    private Vector2 direction;
+    private Vector2 _direction;
     private bool _isAlive = true;
 
     // Start is called before the first frame update
@@ -49,11 +49,11 @@ public class EnemyRocket : MonoBehaviour
                 _targets.Add(building.gameObject);
             }
         }
-
+       
         // Select random _target
         _target = _targets[Random.Range(0, _targets.Count)];
 
-        // Determine the vector between the rocket and the target
+        // Determine the vector between the Rocket and the target
         _targetLocation = _target.transform.position;
         _vectorToTarget = _targetLocation - this.transform.position;
     }
@@ -61,34 +61,43 @@ public class EnemyRocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Determine direction to move based on vector to the target
-        direction = _vectorToTarget.normalized * 0.001f;
+        // Determine _direction to move based on vector to the target
+        _direction = _vectorToTarget.normalized * 0.001f;
 
         // Add to the current acceleration, clamp to max value
         _currentAcceleration += _baseAcceleration * Time.deltaTime;
-        _currentAcceleration = Mathf.Clamp(_currentAcceleration, -maxAcceleration, maxAcceleration);
+        _currentAcceleration = Mathf.Clamp(_currentAcceleration, -_maxAcceleration, _maxAcceleration);
 
         // Add acceleration to velocity, clamp velocity
         _velocity += _currentAcceleration;
-        _velocity = Mathf.Clamp(_velocity, 0, maxVelocity);
+        _velocity = Mathf.Clamp(_velocity, 0, _maxVelocity);
 
-        // Multiply the direction to move by the velocity and apply to gameObject 
-        Vector2 velocityVector = _velocity * direction;
+        // Multiply the _direction to move by the velocity and apply to gameObject 
+        Vector2 velocityVector = _velocity * _direction;
 
         gameObject.transform.Translate(velocityVector);
     }
 
+    // Called when hit by an explosion, or when hitting another object.
     public void Hit()
     {
         gameObject.SetActive(false);
         _isAlive = false;
     }
 
+    /// <summary>
+    /// Returns status of enemy Rocket.
+    /// </summary>
+    /// <returns>True if alive, false if not.</returns>
     public bool IsAlive()
     {
         return _isAlive;
     }
 
+    /// <summary>
+    /// Called when overlapping with another rigidbody.
+    /// </summary>
+    /// <param name="other">Other object which triggered collision.</param>
     void OnTriggerEnter2D(Collider2D other)
     {
         GameObject target = other.gameObject;

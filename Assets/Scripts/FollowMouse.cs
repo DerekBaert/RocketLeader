@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class FollowMouse : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
+        // Reticle object follows position of the mouse on the screen.
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
         mousePosition.z = 0;
-        //Debug.Log(mousePosition);
         transform.position = mousePosition;
     }
 }
